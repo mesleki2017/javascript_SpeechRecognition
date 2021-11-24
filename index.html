@@ -1,0 +1,98 @@
+<style>
+:root {
+    font-size: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 400;
+    height: 100vh;
+    color: #fff;
+    background-color: #222;
+    text-align: center;
+    text-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    font-size: 6em;
+    font-weight: 700;
+    padding: 0.7em;
+}
+
+main {
+    flex: 1 0 25em;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.heard-output {
+    color: #0400ff;
+	font-size: 10em;
+}
+
+.renkkutu {
+    flex: 1 0 10rem;
+    height: 30%;
+    
+    background-color: rgb(15, 9, 9);
+    margin: 1rem;
+}
+
+</style>
+<header>
+    <h1 class="baslik">Bir Renk Söyle</h1>
+</header>
+
+<main>
+    <div>duyulan: <span class="heard-output">none</span></div>
+    <div class="renkkutu"></div>
+</main>
+
+
+
+<script>
+
+
+//Set speech recognition
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition(),
+      heardOutput = document.querySelector('.heard-output'),
+      renkkutu1 = document.querySelector('.renkkutu');
+
+
+
+//Start speech recognition
+recognition.start();
+
+//Listen for when the user finishes talking
+recognition.addEventListener('result', e => {
+
+    //Get transcript of user speech
+    var transcript = e.results[0][0].transcript.toLowerCase();
+
+
+    //Output transcript
+    heardOutput.textContent = transcript;
+    //listede1.textContent =transcript;
+    
+    if (transcript == "mavi") {renkkutu1.style.backgroundColor ="#001aff";}
+    if (transcript == "kırmızı") {renkkutu1.style.backgroundColor ="#ff0000";}
+    if (transcript == "turuncu") {renkkutu1.style.backgroundColor ="#ffbb00";}
+    if (transcript == "yeşil") {renkkutu1.style.backgroundColor ="#00b159";}
+    if (transcript == "sarı") {renkkutu1.style.backgroundColor ="##ffc425";}
+    
+});
+
+//Restart speech recognition after user has finished talking
+recognition.addEventListener('end', recognition.start);
+
+
+</script>
